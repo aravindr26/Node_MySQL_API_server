@@ -5,7 +5,8 @@ var sequilize   = require('./config/sequilize');
 var port        = process.env.PORT || 8001;
 // Init the express application
 var app = express();
-require('./config/express')(app);
+require('./config/express')(app,sequilize);
 // Start the server
+
 app.listen(port);
 console.log('There will be dragons: http://localhost:' + port);

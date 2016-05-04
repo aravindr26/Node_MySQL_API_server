@@ -6,7 +6,7 @@ var morgan      = require('morgan');
 var passport	= require('passport');
 var jwt         = require('jwt-simple');
 
-module.exports = function(app) {
+module.exports = function(app, sequilize) {
   
   // get our request parameters
   app.use(bodyParser.urlencoded({ extended: false }));
@@ -18,7 +18,8 @@ module.exports = function(app) {
   // Use the passport package in our application
   app.use(passport.initialize());
 
-  require('../app/routes')(app);
- 
+  sequilize.sync().then(function (err) {
+    require('../app/routes')(app);
+  });
   return app;
 };
